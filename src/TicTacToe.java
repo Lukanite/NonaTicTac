@@ -2,7 +2,26 @@ import java.awt.*;
 import javax.swing.*;
 
 public class TicTacToe extends JFrame{
+	private static final long serialVersionUID = 9106403499068281271L;
+	static boolean xturn = true;
+	static Color background = new Color(255,255,200);
+	static Color transparent = new Color(255,255,255,255);
+	public static boolean isXturn() {
+		return xturn;
+	}
+
+	public static void setXturn(boolean xturn) {
+		TicTacToe.xturn = xturn;
+	}
+	static int win = 0;
 	
+	public static int getWin() {
+		return win;
+	}
+
+	public static void setWin(int win) {
+		TicTacToe.win = win;
+	}
 	public TicTacToe(){
 		init();
 	}
