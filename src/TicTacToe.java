@@ -26,6 +26,7 @@ public class TicTacToe extends JFrame{
 		}
 		drawTicTac(g,333,333,500/3);
 		drawX(g,0,0,500/9);
+		drawO(g,0,500/9,500/9);
 	}
 	public void drawTicTac(Graphics g, int startx, int starty, int size) {
 		//System.out.println(startx + "," + starty + "," + size);
@@ -44,6 +45,9 @@ public class TicTacToe extends JFrame{
 		g.fillPolygon(xpoints, ypoints, 12); 
 	}
 	public void drawO(Graphics g, int startx, int starty, int size) {
+		g.fillOval(startx, starty, size, size);
+		g.setColor(Color.LIGHT_GRAY); //Currently hardcoded, should change
+		g.fillOval(startx+size/5, starty+size/5, (int)Math.round(.6*size), (int)Math.round(.6*size));
 	}
 	public void drawBoard(Graphics g){
 		
