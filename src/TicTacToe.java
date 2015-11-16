@@ -1,10 +1,15 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Random;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class TicTacToe extends JPanel{
 	private static final long serialVersionUID = 9106403499068281271L;
@@ -79,9 +84,12 @@ public class TicTacToe extends JPanel{
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				TicTacToe.processClick(arg0.getX(),arg0.getY());
+				boolean outcome = TicTacToe.processClick(arg0.getX(),arg0.getY());
 				repaint();
-				
+				if(outcome) {
+					AI();
+					repaint();
+				}				
 			}
 
 			@Override
@@ -98,14 +106,14 @@ public class TicTacToe extends JPanel{
 	}
 	
 	
-	protected static void processClick(int x, int y) {
+	protected static boolean processClick(int x, int y) {
 		int boardxpos = x/(500/3);
 		int boardypos = y/(500/3);
 		//check if no boards are active
 		boolean boardactive = false;
 		for (Board b:boards) if (b.isActive()) boardactive = true;
 		if (!boardactive && boards[3*boardypos+boardxpos].getWinner()==0) boards[3*boardypos+boardxpos].setActive(true);
-		boards[3*boardypos+boardxpos].processClick(x-boards[3*boardypos+boardxpos].getXpos(), y-boards[3*boardypos+boardxpos].getYpos());
+		return boards[3*boardypos+boardxpos].processClick(x-boards[3*boardypos+boardxpos].getXpos(), y-boards[3*boardypos+boardxpos].getYpos());
 	}
 
 	
@@ -132,6 +140,30 @@ public class TicTacToe extends JPanel{
 	}
 	
 	public void AI() {
+		Board activeBoard = new Board();
+		for(Board b : boards) {
+			if (b.isActive()) {
+				activeBoard = b;
+			}
+		}
+		System.out.println(activeBoard);
+		
+		ArrayList<Integer> emptySpaces = new ArrayList<Integer>(); 
+		
+		for(int i = 0; i < activeBoard.getSpaces().length; i++) {
+			if (activeBoard.getSpaces()[i] == 0) {
+				emptySpaces.add(i);
+				System.out.print(i);
+			}
+		}
+		System.out.println();
+		
+		Random generator = new Random();
+		int index = generator.nextInt(emptySpaces.size());
+		int move = emptySpaces.get(index);
+		System.out.print("AI: ");
+		System.out.println(move);
+		activeBoard.processClick(move);
 		
 	}
 	

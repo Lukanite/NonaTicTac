@@ -16,6 +16,11 @@ public class Board {
 	public int getWinner() {
 		return winner;
 	}
+	
+	public Board() {
+		//Empty constructor
+	}
+	
 	public Board(int id, int size, int xpos, int ypos) {
 		this.id=id;
 		this.size = size;
@@ -67,11 +72,18 @@ public class Board {
 	public int getYpos() {
 		return ypos;
 	}
-	public void processClick(int x, int y) {
+	public int[] getSpaces() {
+		return spaces;
+	}
+	
+	public boolean processClick(int x, int y) {
 		// TODO Auto-generated method stub
+		
+		boolean result = false;
 		int xpart = x/(size/3);
 		int ypart = y/(size/3);
 		int space = 3*ypart+xpart;
+		System.out.println(space);
 		if (spaces[space] == 0 && isActive()) {
 			if (TicTacToe.isXturn()) {
 				spaces[space] = 1;
@@ -81,9 +93,32 @@ public class Board {
 				spaces[space] = 2;
 				TicTacToe.setXturn(true);
 			}
+			result = true;
 		}
 		checkWin();
+		return result;
 	}
+	
+	public boolean processClick(int space) {
+		// TODO Auto-generated method stub
+		System.out.println(space);
+		
+		boolean result = false;
+		if (spaces[space] == 0 && isActive()) {
+			if (TicTacToe.isXturn()) {
+				spaces[space] = 1;
+				TicTacToe.setXturn(false);
+			}
+			else {
+				spaces[space] = 2;
+				TicTacToe.setXturn(true);
+			}
+			result = true;
+		}
+		checkWin();
+		return result;
+	}
+	
 	public void checkWin() {
 		int win = 0;
 		for (int p = 1; p<3; p++) {
