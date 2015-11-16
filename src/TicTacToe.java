@@ -63,8 +63,6 @@ public class TicTacToe extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				TicTacToe.processClick(arg0.getX(),arg0.getY());
-				repaint();
 			}
 
 			@Override
@@ -80,13 +78,14 @@ public class TicTacToe extends JPanel{
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+			public void mousePressed(MouseEvent arg0) {
+				TicTacToe.processClick(arg0.getX(),arg0.getY());
+				repaint();
 				
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
@@ -112,13 +111,28 @@ public class TicTacToe extends JPanel{
 	
 	public void paint(Graphics g){
 		super.paint(g);
+		boolean draw = true;
+		
 		if (win == 0) {
-			if (boards[9].isFull()) g.drawString("It's a draw!", 100, 100);
-			else for (Board b : boards) b.draw(g);
+			for(int i = 0; i < boards.length-1; i++) {
+				if (!boards[i].isFull()) {
+					draw = false;
+				}
+				boards[i].draw(g);
+			}
+			boards[9].draw(g);
+			
+			if(draw) {
+				g.drawString("It's a draw!", 100, 100);
+			}
 		}
 		else {
 			g.drawString("Player " + win + " wins!", 100, 100);
 		}
+	}
+	
+	public void AI() {
+		
 	}
 	
 	public static void main(String[] args){
