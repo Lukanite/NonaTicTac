@@ -200,18 +200,23 @@ public class TicTacToe extends JPanel {
 				activeBoard = b;
 			}
 		}
+		System.out.println(activeBoard);
 
 		ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
 
 		for (int i = 0; i < activeBoard.getSpaces().length; i++) {
 			if (activeBoard.getSpaces()[i] == 0) {
 				emptySpaces.add(i);
+				System.out.print(i);
 			}
 		}
+		System.out.println();
 
 		Random generator = new Random();
 		int index = generator.nextInt(emptySpaces.size());
 		int move = emptySpaces.get(index);
+		System.out.print("AI: ");
+		System.out.println(move);
 		activeBoard.processClick(move);
 
 	}
