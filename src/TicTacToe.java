@@ -126,7 +126,7 @@ public class TicTacToe extends JPanel {
 					if (activeBoard == null && isXturn() == false) {
 						ArrayList<Board> empBoards = new ArrayList<Board>();
 						for (int i = 0; i < 9; i++) {
-							if (boards[i].getWinner() == 0)
+							if (boards[i].getWinner() == 0 && !boards[i].isFull())
 								empBoards.add(boards[i]);
 						}
 						Random generator = new Random();
@@ -135,7 +135,7 @@ public class TicTacToe extends JPanel {
 						move.setActive(true);
 						AI();
 					}
-					else{
+					else if (!isXturn()) {
 						AI();
 						repaint();
 					}
@@ -185,11 +185,11 @@ public class TicTacToe extends JPanel {
 
 			if (draw) {
 				g.setFont(new Font("TimesRoman", Font.BOLD, 50));
-				g.drawString("It's a draw!", 120, 250);
+				g.drawString("It's a draw!", 80, 250);
 			}
 		} else {
 			g.setFont(new Font("TimesRoman", Font.BOLD, 50));
-			g.drawString("Player " + win + " wins!", 120, 250);
+			g.drawString("Player " + win + " wins!", 80, 250);
 		}
 	}
 
